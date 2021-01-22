@@ -1,25 +1,34 @@
-// console.log(document.body);
-// console.log(document.head);
-// console.log(document.documentElement);
-// console.log(document.body.childNodes);
-// console.log(document.body.firstChild);
-// console.log(document.body.firstElementChild);
-// console.log(document.body.lastChild);
-// console.log(document.body.lastElementChild);
+// touchstart
+// touchmove
+// touchend
+// touchenter
+// touchleave
+//  touchcancel
 
-// console.log(document.querySelector('#current').parentNode.parentNode);
-// console.log(document.querySelector('#current').parentElement);
+window.addEventListener('DOMContentLoaded', () => {
+    const box = document.querySelector('.box');
 
-// console.log(document.querySelector('[data-current ="3"]').nextSibling);
-// console.log(document.querySelector('[data-current ="3"]').previousSibling);
+    box.addEventListener('touchstart', (e) => {
+        e.preventDefault();
 
-// console.log(document.querySelector('[data-current ="3"]').nextElementSibling);
-// console.log(document.querySelector('[data-current ="3"]').previousElementSibling);
+        console.log("Start");
+        // console.log(e.touches);
+        console.log(e.targetTouches);
+        });
 
-for (let node of document.body.childNodes) {
-    if(node.nodeName == '#text') {
-        continue;
-    }
+    box.addEventListener('touchmove', (e) => {
+        e.preventDefault();
 
-    console.log(node);
-}
+        console.log(e.targetTouches[0].pageX);
+    });
+
+    // box.addEventListener('touchend', (e) => {
+    //     e.preventDefault();
+
+    //     console.log("End");
+    // });
+});
+
+// touches
+// targetTouches
+// changedTouches
