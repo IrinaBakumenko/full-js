@@ -1,0 +1,23 @@
+body {
+    background-color:grey;
+}
+
+.btn-block {
+    background-color: blueviolet;
+}
+
+.blue {
+    background-color:cornflowerblue;
+}
+
+.red {
+    background-color:firebrick;
+}
+
+.some {
+    background-color:forestgreen;
+}
+
+button {
+    background-color:yellow;
+}
