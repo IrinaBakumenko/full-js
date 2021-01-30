@@ -1,39 +1,97 @@
-'use strict';
+window.addEventListener('DOMContentLoaded', () => {
+    // Tabs
 
-// const now = new Date('2020-05-01');
-// console.log(now);
+    const tabs = document.querySelectorAll('.tabheader__item'),
+          tabsContent = document.querySelectorAll(".tabcontent"),
+          tabsParent = document.querySelector(".tabheader__items");
 
-// const now = new Date(2020, 5, 1, 20);
-// console.log(now);
+    function hideTabContent() {
+            tabsContent.forEach(item => {
+                // item.style.display = 'none';
+                item.classList.add('hide');
+                item.classList.remove('show', 'fade');
+        });
 
-// const now = new Date(0);
-// console.log(now);
+        tabs.forEach(item => {
+            item.classList.remove('tabheader__item_active');
+        });
+    }
 
-// const now = new Date(-999999999999);
-// console.log(now);
+    function showTabContent(i = 0) {
+        // tabsContent[i].style.display = 'block';
+        tabsContent[i].classList.add('show', 'fade');
+        tabsContent[i].classList.remove('hide');
+        tabs[i].classList.add('tabheader__item_active');
+    }
 
-// const now = new Date();
-// console.log(now.getFullYear());
-// console.log(now.getMonth());
-// console.log(now.getDate());
-// console.log(now.getDay());
-// console.log(now.getUTCHours());
-// console.log(now.getTimezoneOffset());
-// console.log(now.getTime());
+    hideTabContent();
+    showTabContent();
 
-const now = new Date('2020-05-01');
-// new Date.parse('2020-05-01');
-// console.log(now.setHours(18, 40));
-// console.log(now.setHours(40));
-// console.log(now.setHours(40));
-console.log(now);
+    tabsParent.addEventListener('click', (event) => {
+        const target = event.target;
 
-let start = new Date();
+        if (target && target.classList.contains('tabheader__item')) {
+            tabs.forEach((item, i) => {
+                if (target == item) {
+                    hideTabContent();
+                    showTabContent(i);
+                }
+            });
+        }   
+    });
 
-for (let i = 0; i < 100000; i++) {
-    let some = i ** 3;
-}
+    //Timer
 
-let end = new Date();
+    const deadline = '2021-02-01';
 
-alert(`Цикл отработал за ${end - start} миллисекунд`);
+    function getTimeRemaining(endtime) {
+        const t = Date.parse(endtime) - Date.parse(new Date()),
+              days = Math.floor(t / (1000 * 60 * 60 * 24)),
+              hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+              minutes = Math.floor((t / 1000 / 60) % 60),
+              seconds = Math.floor((t / 1000) % 60);
+
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function getZero(num) {
+        if (num >= 0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    }
+
+    function setClock(selector, endtime) {
+        const timer = document.querySelector(selector),
+              days = timer.querySelector('#days'),
+              hours = timer.querySelector('#hours'),
+              minutes = timer.querySelector('#minutes'),
+              seconds = timer.querySelector('#seconds'),
+              timeInterval = setInterval(updateClock, 1000);
+
+        updateClock();
+
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+            }
+        }
+    }
+
+    setClock('.timer', deadline);
+
+}); 
