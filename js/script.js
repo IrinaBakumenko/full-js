@@ -1,45 +1,88 @@
 'use strict';
 
-// const num = new Number(3);
-// console.log(num);
+// 1. Обычная функция: this = window, но если use strict - undefined
 
-// const num = new Function(3);
-// console.log(num);
+// function showThis (a, b) {
+//         console.log(this);
+//         function sum() {
+//             console.log(this);
+//             return a + b;
+//         }
+    
+//         console.log(sum());
+// }
 
-function User(name, id) {
-    this.name = name;
-    this.id = id;
-    this.human = true;
-    this.hello = function() {
-        console.log(`Hello ${this.name}`);
+// showThis(4, 5);
+
+// 2. Контекст у метода объекта - сам объект
+
+// const obj = {
+//     a: 20,
+//     b: 15,
+//     sum: function () {
+//         function shout() {
+//             console.log(this);
+//         }
+//         shout();
+//     }
+// };
+// obj.sum();
+
+// 3. this в конструкторах и классах - это новый экземпляр объекта
+
+// function User(name, id) {
+//     this.name = name;
+//     this.id = id;
+//     this.human = true;
+//     this.hello = function() {
+//         console.log("Hello!" + this.name);
+//     };
+// }
+// let ivan = new User('Ivan', 23);
+
+// 4. Ручная привязка this 
+
+// function sayName(surname) {
+//     console.log(this);
+//     console.log(this.name + surname);
+// }
+
+// const user = {
+//     name: 'John'
+// };
+
+// sayName.call(user, 'Smith');
+// sayName.apply(user, ['Smith']);
+
+// function count(num) {
+//     return this*num;
+// }
+
+// const double = count.bind(2);
+// console.log(double(3));
+
+const btn = document.querySelector('button');
+
+btn.addEventListener('click', function() {
+    this.style.backgroundColor = 'red';
+});
+
+const obj = {
+    num: 5,
+    sayNumber: function() {
+        const say = () => {
+            console.log(this);
+        }
+
+        say();
     }
 }
 
-class User {
-    constructor(name, id) {
-        this.name = name;
-        this.id = id;
-        this.human = true;
-    }
-    hello() {
-        console.log(`Hello ${this.name}`)
-    }
-    exit() {
-        console.log(`User ${this.name} left`)
-    }
-}
+obj.sayNumber();
 
-User.prototype.exit = function() {
-    console.log(`User ${this.name} left`);
-}
+// const double = (a) => {
+//     return a * 2;
+// };
+// const double = a => a * 2;
 
-const ivan = new User('Ivan', 28);
-const alex = new User('Alex', 18);
-
-ivan.exit();
-
-ivan.hello();
-alex.hello();
-
-console.log(ivan);
-console.log(alex);
+// console.log(double(4));
