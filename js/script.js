@@ -243,78 +243,6 @@ window.addEventListener('DOMContentLoaded', () => {
             `;
             form.insertAdjacentElement('afterend', statusMessage);
 
-
-            //XML
-
-            // const request = new XMLHttpRequest();
-            // request.open('POST', 'server.php');
-
-
-            //XML FormData
-            //  //request.setRequestHeader('Content-type', 'multipart/form-data');-not use
-            // const formData = new FormData(form);
-
-            // request.send(formData);
-            // request.addEventListener('load', () => {
-            //     if (request.status === 200) {
-            //         console.log(request.response);
-            //         statusMessage.textContent = message.succes;
-            //         form.reset();
-            //         setTimeout(() => {
-            //             statusMessage.remove();
-            //         }, 2000);
-            //     } else {
-            //         statusMessage.textContent = message.failure;
-            //     }
-            // });
-
-
-            // XML JSON
-
-            // request.setRequestHeader('Content-type', 'application/json');
-            // const formData = new FormData(form);
-
-            // const object = {};
-            // formData.forEach(function(value, key){
-            //     object[key] = value;
-            // });
-
-            // const json = JSON.stringify(object);
-
-            // request.send(json);
-            // request.addEventListener('load', () => {
-            //     if (request.status === 200) {
-            //         console.log(request.response);
-            //         showThanksModal(message.succes);
-            //         form.reset();
-            //         statusMessage.remove();
-            //     } else {
-            //         showThanksModal(message.failure);
-            //     }
-            // });
-
-
-            //Fetch API FormData
-
-            // const formData = new FormData(form);
-
-            // fetch('server.php', {
-            //     method: "POST",
-            //     body: formData
-            // }).then(data => data.text())
-            // .then(data => {
-            //     console.log(data);
-            //     showThanksModal(message.succes);
-            //     statusMessage.remove();
-            // }).catch(() => {
-            //     showThanksModal(message.failure);
-            // }).finally(() => {
-            //     form.reset();
-            // });
-        // });
-    
-
-
             //Fetch API JSON
 
             const formData = new FormData(form);
@@ -367,17 +295,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    
-    //Fetch API
-
-    // fetch('https://jsonplaceholder.typicode.com/posts', {
-    //     method: "POST",
-    //     body: JSON.stringify({name: 'Alex'}),
-    //     headers: {
-    //         'Content-type': 'application/json'
-    //     }
-    // })
-    // .then(response => response.json())
-    // .then(json => console.log(json))
+    fetch('http://localhost:3000/menu')
+        .then(data => data.json())
+        .then(res => console.log(res));
 
 });
